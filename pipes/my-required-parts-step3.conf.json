@@ -1,0 +1,57 @@
+{
+  "_id": "my-required-parts-step3",
+  "type": "pipe",
+  "source": {
+    "type": "dataset",
+    "dataset": "my-required-parts-step2"
+  },
+  "transform": {
+    "type": "dtl",
+    "rules": {
+      "default": [
+        ["copy", "*name"],
+        ["copy", "quantity*"],
+        ["copy", "set_count"],
+        ["add", "color",
+          ["first",
+            ["hops", {
+              "datasets": ["rebrickable-colors r"],
+              "where": [
+                ["eq", "_S.color", "r.$ids"]
+              ],
+              "return": "r.rebrickable-colors:name"
+            }]
+          ]
+        ],
+        ["add", "category",
+          ["first",
+            ["hops", {
+              "datasets": ["rebrickable-part-categories r"],
+              "where": [
+                ["eq", "_S.rebrickable-parts:part_cat_id-ni", "r.$ids"]
+              ],
+              "return": "r.rebrickable-part-categories:name"
+            }]
+          ]
+        ],
+        ["add", "set_number",
+          ["ni-id", "_S.set"]
+        ],
+        ["add", "set_name",
+          ["first",
+            ["hops", {
+              "datasets": ["rebrickable-sets r"],
+              "where": [
+                ["eq", "_S.set", "r.$ids"]
+              ],
+              "return": "r.rebrickable-sets:name"
+            }]
+          ]
+        ]
+      ]
+    }
+  },
+  "metadata": {
+    "tags": "lego"
+  }
+}

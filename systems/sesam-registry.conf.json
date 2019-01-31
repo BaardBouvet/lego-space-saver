@@ -1,0 +1,6 @@
+{
+  "_id": "sesam-registry",
+  "type": "system:url",
+  "url_pattern": "https://registry.sesam.io/%s",
+  "verify_ssl": true
+}

@@ -1,0 +1,15 @@
+{
+  "_id": "my-required-parts-endpoint",
+  "type": "pipe",
+  "source": {
+    "type": "dataset",
+    "dataset": "my-required-parts-step3"
+  },
+  "sink": {
+    "type": "csv_endpoint",
+    "columns": ["_id", "category", "color", "quantity_max", "quantity_pct", "quantity_total", "rebrickable-parts:name", "set_count", "set_name", "set_number"]
+  },
+  "metadata": {
+    "tags": "lego"
+  }
+}

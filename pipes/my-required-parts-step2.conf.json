@@ -1,0 +1,47 @@
+{
+  "_id": "my-required-parts-step2",
+  "type": "pipe",
+  "source": {
+    "type": "dataset",
+    "dataset": "my-required-parts"
+  },
+  "transform": {
+    "type": "dtl",
+    "rules": {
+      "default": [
+        ["copy", "*"],
+        ["add", "_stats",
+          ["hops", {
+            "datasets": ["rebrickable-inventory-parts ip", "rebrickable-inventories i", "my-sets m"],
+            "where": [
+              ["eq",
+                ["tuples", "ip.rebrickable-inventory-parts:part_num-ni", "ip.rebrickable-inventory-parts:color_id-ni"],
+                ["tuples", "_S.part", "_S.color"]
+              ],
+              ["eq", "ip.rebrickable-inventory-parts:inventory_id-ni", "i.$ids"],
+              ["eq", "i.rebrickable-inventories:set_num-ni", "m.Set_Number-ni"]
+            ],
+            "return": ["dict", "Quantity", "ip.rebrickable-inventory-parts:quantity", "Set_Number-ni", "m.Set_Number-ni"]
+          }]
+        ],
+        ["add", "quantity_total",
+          ["sum", "_T._stats.Quantity"]
+        ],
+        ["add", "_max",
+          ["max", "_.Quantity", "_T._stats"]
+        ],
+        ["add", "quantity_max", "_T._max.Quantity"],
+        ["add", "set", "_T._max.Set_Number-ni"],
+        ["add", "set_count",
+          ["count", "_T._stats.Set_Number-ni"]
+        ],
+        ["add", "quantity_pct",
+          ["/", "_T.quantity_max", "_T.quantity_total"]
+        ]
+      ]
+    }
+  },
+  "metadata": {
+    "tags": "lego"
+  }
+}

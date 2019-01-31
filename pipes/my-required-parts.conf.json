@@ -1,0 +1,44 @@
+{
+  "_id": "my-required-parts",
+  "type": "pipe",
+  "source": {
+    "type": "dataset",
+    "dataset": "rebrickable-parts"
+  },
+  "transform": {
+    "type": "dtl",
+    "rules": {
+      "default": [
+        ["create",
+          ["apply", "color",
+            ["hops", {
+              "datasets": ["rebrickable-inventory-parts ip", "rebrickable-inventories i", "my-sets m"],
+              "where": [
+                ["eq", "ip.rebrickable-inventory-parts:part_num-ni", "_S.$ids"],
+                ["eq", "ip.rebrickable-inventory-parts:inventory_id-ni", "i.$ids"],
+                ["eq", "i.rebrickable-inventories:set_num-ni", "m.Set_Number-ni"]
+              ],
+              "return": "ip.rebrickable-inventory-parts:color_id-ni"
+            }]
+          ]
+        ],
+        ["filter"]
+      ],
+      "color": [
+        ["merge", "_R._S"],
+        ["add", "part",
+          ["ni", "_R._S._id"]
+        ],
+        ["add", "color", "_S."],
+        ["add", "_id",
+          ["concat", "_R._S._id", "-",
+            ["string", "_S."]
+          ]
+        ]
+      ]
+    }
+  },
+  "metadata": {
+    "tags": "lego"
+  }
+}
