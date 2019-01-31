@@ -1,4 +1,4 @@
-# Calculates minimum required Lego parts for your sets
+# Calculates minimum required Lego parts for your sets using sesam.io
 
 Update the ``my-sets`` embedded dataset to contain the quantity of sets you own and download a csv file with minimum required parts you need in order to build any of your sets (but not all of them at once).
 
