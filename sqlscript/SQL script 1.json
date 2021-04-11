@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [subscription-tom-test]([global-paymentmethod:billable] bit,\n[global-paymentmethod:company-ni] nvarchar(1000),\n[global-paymentmethod:currency] nvarchar(1000),\n[global-paymentmethod:description] nvarchar(1000),\n[global-paymentmethod:internal] bit,\n[global-paymentmethod:name] nvarchar(1000),\n[global-paymentmethod:project-ni] nvarchar(1000),\n[global-subscription:admin-link] nvarchar(1000) NOT NULL,\n[global-subscription:billable] bit NOT NULL,\n[global-subscription:data-link] nvarchar(1000) NOT NULL,\n[global-subscription:mute] bit NOT NULL,\n[global-subscription:name] nvarchar(1000) NOT NULL,\n[global-subscription:paymentmethod-ni] nvarchar(1000),\n[global-subscription:portal-link] nvarchar(1000) NOT NULL,\n[global-subscription:subscription-id] nvarchar(1000) NOT NULL,\n[_id] nvarchar(900) NOT NULL,\n[global-paymentmethod:fixed_currency] nvarchar(1000),\n[global-paymentmethod:fixed_price] int\nPRIMARY KEY NONCLUSTERED ([_id]) NOT ENFORCED) WITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH([_id]))",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "test",
+				"databaseName": "test"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
